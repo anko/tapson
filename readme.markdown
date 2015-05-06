@@ -20,25 +20,25 @@ given.
 
 **Input**:
 
-    {"ok":true, "description":"Calculator set up"}
-    {"ok":false, "description": "Neative number support", "expected":"Signed integer type exists", "actual":"Only unsigned int is supported"}
+    {"ok":true, "expected":"Calculator set up works"}
+    {"ok":false, "expected":"Negative number support", "actual":"Only unsigned int is supported"}
     {"ok":false}
 
 **Interpretation**:  Three tests ran, one passed, two failed.  The first tested
 calculator set up.  The second tested for negative number support and failed,
-finding only unsigned integers when it expected to find an integer type.  The
-third test failed too, but further details were not specified.
+finding only unsigned integers.  The third test failed too, but further details
+were not specified.
 
 ### Mixed planned test and immediate tests
 
 **Input**:
 
-    {"id":"55ca6286e3e4f4fba5d0448333fa99fc5a404a73", "description":"Page loads"}
-    {"ok":true, "description":"Simple arithmetic works"}
+    {"id":"55ca6286e3e4f4fba5d0448333fa99fc5a404a73", "expected":"Page loads"}
+    {"ok":true, "expected":"Simple arithmetic works"}
     {"ok":true, "id":"55ca6286e3e4f4fba5d0448333fa99fc5a404a73", "actual":"200 OK"}
 
 **Interpretation**:  Two tests ran, both succeeded.  The first was planned with
-an identifier and a description, and its result arrived later with a matching
+an identifier and expected value, and its result arrived later with a matching
 identifier.  The other test was not planned with an identifier, but succeeded.
 
 ### Multiple planned tests, run asynchronously
@@ -108,17 +108,15 @@ Compulsory properties (each object must contain either or both of these):
 
 Optional properties (object may contain any, all or none of these):
 
--   `description`::`string` What was tested.
 -   `expected`::`string` What the test expected to find.
 -   `actual`::`string` What the test found.
 
 These properties being present with the wrong type should raise an error.
 Other properties may be present, but must be assumed to be meaningless.
 
-The contents of the `description`, `expected` and `actual` properties are
-intended for human consumption.  Tapson consumers must not assume them to be in
-any particular format.  Tapson producers must assume they will be read by a
-human.
+The contents of the `expected` and `actual` properties are intended for human
+consumption.  Tapson consumers must not assume them to be in any particular
+format.  Tapson producers must assume they will be read by a human.
 
 The properties `id` and `ok` are OK for machine consumption.
 
@@ -142,7 +140,7 @@ failed with no further details given (only an `ok` property).  If any results
 for non-existant planned tests are encountered, they must be treated as they
 had no `id` property.)  A planned test must not contain the properties `ok` or
 `actual`.  A result matching a previously planned test must not contain the
-properties `description` or `expected`.
+`expected` property.
 
 A tapson stream contains no protocol version metadata.  Tapson producers and
 consumers must declare what versions they support.
@@ -156,7 +154,7 @@ tapson results for human consumption is left up to implementors.
 
 ## FAQ
 
-**Nested tests?**  Use the `description` property.
+**Nested tests?**  Run separate test sets and merge the output streams.
 
 **Timing information?**  Use the `actual` property.
 
