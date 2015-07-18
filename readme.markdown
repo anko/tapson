@@ -1,7 +1,34 @@
 # tapson specification
 
-Simple protocol for communicating the results of software tests.  Like [TAP][1]
-but simpler and in [JSON][2].
+A simple protocol for communicating the results of software tests.  Like
+[TAP][1] but simpler, in [JSON][2], and supports streaming asynchronous tests'
+results.
+
+## In summary
+
+`\n`-delimited JSON objects.
+
+An object that contains an `ok` property is a *test result*.  One that doesn't
+is a *test plan* and must contain an `id` that a later test result might match.
+
+The `expected` property tells a human what the test expects to see.  The
+`actual` property tells a human what actually happened.
+
+Questions, gripes?  Create a github issue.
+
+## Why
+
+There was no equivalent existing protocol.
+
+The closest is [TAP][3], but tapson is better in these ways:
+
+-   Tapson is based on JSON.  (TAP uses a custom format.)
+-   Tapson is better specified.  (The TAP specification is frequently vague,
+    which has caused implementations to diverge.)
+-   Tapson is designed with asynchronous operation in mind.  (TAP assumes
+    planned tests are immediately executed.)
+-   Tapson is deliberately simple.  (TAP considers YAML blocks, "TODO"
+    annotations and test-skipping as parts of the protocol.)
 
 ## Examples
 
@@ -87,7 +114,7 @@ plan was not present.)
 **Interpretation**:  One test ran and passed with no further explanation.
 (Note how the additional properties are treated as if they were absent.)
 
-## Spec
+## Formal spec
 
 The following is a reasonably formal description of how exactly tapson
 producers (programs that output it) and tapson consumers (programs that accept
@@ -121,7 +148,7 @@ format.  Tapson producers must assume they will be read by a human.
 The properties `id` and `ok` are OK for machine consumption.
 
 As per the JSON specification, properties may appear in any order within
-objects, and [Unicode][3] must be supported.
+objects, and [Unicode][4] must be supported.
 
 ### Expectations
 
@@ -164,24 +191,6 @@ tapson results for human consumption is left up to implementors.
 
 **Bailing before tests finish**  Produce a failed test and emit an EOF.
 
-## Rationale
-
-Explanations for some design decisions:
-
--   The `id` property exists and must be universally unique to allow unrelated
-    tapson streams to be combined to form another valid tapson stream.
--   Non-matching planned tests and their results are tolerated by [Postel's
-    law][4], more specfically to allow freer modification of the stream with
-    simple tools with minimal notions of state.
-
-Differences between tapson and TAP:
-
--   Tapson is based on JSON.  TAP uses a custom format.
--   Tapson streams are line-based and have no compulsory state, making them
-    easier to split, combine and filter using simple tools.
--   Tapson deliberately does not support complex features such as YAML blocks,
-    nested tests or "TODO" annotations as parts of the protocol.
-
 ## Organisation
 
 This spec is until further notice maintained by me.  Extension proposals,
@@ -189,14 +198,16 @@ clarification requests, complaints, etc. should all be discussed in the Github
 issue tracker.
 
 Git commits in this repository tagged with a valid [semantic version][5] are
-actual versions of the standard.  The standard is versioned as per semantic
-versioning 2.0.0.
+actual versions of the standard.  Semantic versioning 2.0.0 applies.
+
+If you write a tool that consumes or produces tapson, please make it clear to
+users what version it complies to.
 
 [MIT license][6].
 
 [1]: https://testanything.org/
 [2]: http://www.json.org/
-[3]: http://unicode.org/
-[4]: http://en.wikipedia.org/wiki/Robustness_principle
+[3]: https://testanything.org/
+[4]: http://unicode.org/
 [5]: http://semver.org/
 [6]: http://opensource.org/licenses/MIT
