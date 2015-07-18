@@ -158,7 +158,7 @@ tapson results for human consumption is left up to implementors.
 
 **Timing information?**  Use the `actual` property.
 
-**Narking tests as "TODO"?**  Don't include them.
+**Marking tests as "TODO"?**  Don't include them.
 
 **Comments?**  Don't include them.
 
