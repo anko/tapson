@@ -193,9 +193,8 @@ tapson results for human consumption is left up to implementors.
 
 ## Organisation
 
-This spec is until further notice maintained by me.  Extension proposals,
-clarification requests, complaints, etc. should all be discussed in the Github
-issue tracker.
+Extension proposals, clarification requests, complaints, etc. should all be
+discussed in the Github issue tracker.
 
 Git commits in this repository tagged with a valid [semantic version][5] are
 actual versions of the standard.  Semantic versioning 2.0.0 applies.
