@@ -1,34 +1,35 @@
 # tapson specification
 
-A simple protocol for communicating the results of software tests.  Like
-[TAP][1] but simpler, in [JSON][2], and supports streaming asynchronous tests'
-results.
+A simple protocol for communicating the results of software tests in a
+language-agnostic manner.  Like [TAP][1] but simpler, in [JSON][2], and
+supports streaming, parallel tests well.
 
 ## In summary
 
 `\n`-delimited JSON objects.
 
 An object that contains an `ok` property is a *test result*.  One that doesn't
-is a *test plan* and must contain an `id` that a later test result might match.
+is a *test plan* and must contain an `id` that a later test can match.
 
-The `expected` property tells a human what the test expects to see.  The
-`actual` property tells a human what actually happened.
+The `expected` property tells a human what a test plan expects to see.  The
+`actual` property tells a human what actually happened in a test result.
 
-Questions, gripes?  Create a github issue.
+For questions, create a github issue.
 
 ## Why
 
-There was no equivalent existing protocol.
+There's no equivalent existing protocol.
 
-The closest is [TAP][3], but tapson is better in these ways:
+The closest is [Test Anything Protocol][3], which tapson has advantages over:
 
--   Tapson is based on JSON.  (TAP uses a custom format.)
--   Tapson is better specified.  (The TAP specification is frequently vague,
-    which has caused implementations to diverge.)
--   Tapson is designed with asynchronous operation in mind.  (TAP assumes
-    planned tests are immediately executed.)
--   Tapson is deliberately simple.  (TAP considers YAML blocks, "TODO"
-    annotations and test-skipping as parts of the protocol.)
+-   Tapson distinguishes between *planning* to run a test and *actually running
+    it*, which enables parallelism without mix-ups.  (TAP assumes tests execute
+    immediately.)
+-   Tapson is simple.  (TAP is weighed down by YAML blocks, "TODO" annotations,
+    diagnostic messages, test-skipping and -bailout directives.)
+-   Tapson is JSON-based.  (TAP uses an informally specified custom format.)
+-   Tapson is better specified.  (TAP implementations have diverged due to the
+    vague spec, which partly defeats its purpose.)
 
 ## Examples
 
