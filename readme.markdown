@@ -196,7 +196,16 @@ Extension proposals, clarification requests, complaints, etc. should all be
 discussed in the Github issue tracker.
 
 Git commits in this repository tagged with a valid [semantic version][5] are
-actual versions of the standard.  Semantic versioning 2.0.0 applies.
+actual versions of the standard.
+
+Semantic versioning 2.0.0 applies.  This means:
+
+-   A major version bump implies the new standard is not backward-compatible
+    with previous versions.  (For example, if a property is renamed.)
+-   A minor version bump implies a backward-compatible improvement (For
+    example, if a new JSON object field is introduced as an optional feature.)
+-   A patch version bump implies wording or typographical tweaks, or addition
+    of extra information, with no change in meaning for the standard itself.
 
 If you write a tool that consumes or produces tapson, please make it clear to
 users what version it complies to.
