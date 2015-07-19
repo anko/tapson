@@ -14,8 +14,6 @@ is a *test plan* and must contain an `id` that a later test can match.
 The `expected` property tells a human what a test plan expects to see.  The
 `actual` property tells a human what actually happened in a test result.
 
-For questions, create a github issue.
-
 ## Why
 
 There's no equivalent existing protocol.
