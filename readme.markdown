@@ -118,7 +118,8 @@ plan was not present.)
 The following is a reasonably formal description of how exactly tapson
 producers (programs that output it) and tapson consumers (programs that accept
 it as input) should behave.  The examples above probably make the idea quite
-clear, but for the lawyerish specifics, here you go.
+clear, but just in case you're stuck on a detail and want the "word of God",
+here are all the lawyerish specifics.
 
 ### Format
 
@@ -127,7 +128,7 @@ marked with a line feed character (`U+000A`, also known as a newline).  The end
 of output is marked with an end of transmission character (`U+0004`, also known
 as `^D` or EOF).
 
-Compulsory properties (each object must contain either or both of these):
+Compulsory properties (each object must contain one or both of these):
 
 -   `ok`::`boolean` Whether the test passed.
 -   `id`::`string` A unique identifier for the test, used for planned tests.
@@ -149,7 +150,7 @@ The properties `id` and `ok` are OK for machine consumption.
 As per the JSON specification, properties may appear in any order within
 objects, and [Unicode][4] must be supported.
 
-### Expectations
+### Semantics
 
 Any `id` property (if present) should be as universally unique as feasible to
 the test that the object represents (a long random string, for example).  These
@@ -162,21 +163,21 @@ corresponding `id` later in the same stream.  An object with *both* the `id`
 and the `ok` property implies the test was previously planned with the same
 `id` and its result is now available.  If the end of output is encountered
 before some test plans have matching results, they must be treated as if they
-failed with no further details given (only an `ok` property).  If any results
-for non-existant planned tests are encountered, they must be treated as they
-had no `id` property.)  A planned test must not contain the properties `ok` or
-`actual`.  A result matching a previously planned test must not contain the
-`expected` property.
+failed with no further details given.  Any test results with `id`s that do not
+correspond to any earlier plan must be treated as if they had no `id` property.
+A test plan must not contain the properties `ok` or `actual`.  A result
+matching a previously planned test must not contain the `expected` property,
+but may otherwise.
 
-A tapson stream contains no protocol version metadata.  Tapson producers and
-consumers must declare what versions they support.
+Tapson streams contain no protocol version metadata.  Tapson producers and
+consumers must clearly declare what versions they support.
 
 Programs that operate by transforming tapson streams are *not required* to
-output unspecified properties present in the objects, but may do so if they
-wish.
+preserve unspecified object properties present in their inputs, but may do so
+if they wish.
 
-The semantic meaning of tests' order is not specified.  The way to present
-tapson results for human consumption is left up to implementors.
+The semantic meaning of tests' order is deliberately not specified.  How to
+present tapson results for human consumption is deliberately not specified.
 
 ## FAQ
 
