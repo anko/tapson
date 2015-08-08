@@ -153,9 +153,9 @@ objects, and [Unicode][4] must be supported.
 ### Semantics
 
 Any `id` property (if present) should be as universally unique as feasible to
-the test that the object represents (a long random string, for example).  These
-must be consistent within the same stream, but do not have to be consistent
-across multiple invocations of the tests.
+the test that the object represents.  A long random string, for example.  [UUID
+v4][5] is a good choice.  These must be consistent within the same stream, but
+do not have to be consistent across multiple invocations of the tests.
 
 The `id` property being present in an object *without* the `ok` property
 represents a *planned test*, which results should be expected with a
@@ -196,7 +196,7 @@ present tapson results for human consumption is deliberately not specified.
 Extension proposals, clarification requests, complaints, etc. should all be
 discussed in the Github issue tracker.
 
-Git commits in this repository tagged with a valid [semantic version][5] are
+Git commits in this repository tagged with a valid [semantic version][6] are
 actual versions of the standard.
 
 Semantic versioning 2.0.0 applies.  This means:
@@ -211,11 +211,12 @@ Semantic versioning 2.0.0 applies.  This means:
 If you write a tool that consumes or produces tapson, please make it clear to
 users what version it complies to.
 
-[MIT license][6].
+[MIT license][7].
 
 [1]: https://testanything.org/
 [2]: http://www.json.org/
 [3]: https://testanything.org/
 [4]: http://unicode.org/
-[5]: http://semver.org/
-[6]: http://opensource.org/licenses/MIT
+[5]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29
+[6]: http://semver.org/
+[7]: http://opensource.org/licenses/MIT
