@@ -1,8 +1,9 @@
-# tapson specification
+# Tapson specification
 
-A simple protocol for communicating the results of software tests in a
-language-agnostic manner.  Like [TAP][1] but simpler, in [JSON][2], and
-supports streaming, parallel tests well.
+Tapson is a simple protocol for communicating the results of software tests in
+a language-agnostic manner.  It is inspired by the [Test Anything Protocol
+(TAP)][1] but is simpler, uses [JSON][2], and supports streaming, parallel
+tests.
 
 ## In summary
 
@@ -12,7 +13,8 @@ An object that contains an `ok` property is a *test result*.  One that doesn't
 is a *test plan* and must contain an `id` that a later test can match.
 
 The `expected` property tells a human what a test plan expects to see.  The
-`actual` property tells a human what actually happened in a test result.
+`actual` property tells a human what actually happened in a test result.  Both
+are optional.
 
 ## Why
 
@@ -23,8 +25,9 @@ The closest is [Test Anything Protocol][3], which tapson has advantages over:
 -   Tapson distinguishes between *planning* to run a test and *actually running
     it*, which enables parallelism without mix-ups.  (TAP assumes tests execute
     immediately.)
--   Tapson is simple.  (TAP is weighed down by YAML blocks, "TODO" annotations,
-    diagnostic messages, test-skipping and -bailout directives.)
+-   Tapson is simple.  (TAP is weighed down by features like YAML blocks,
+    "TODO" annotations, diagnostic messages, test-skipping and bailout
+    directives.)
 -   Tapson is JSON-based.  (TAP uses an informally specified custom format.)
 -   Tapson is better specified.  (TAP implementations have diverged due to the
     vague spec, which partly defeats its purpose.)
@@ -209,7 +212,7 @@ Semantic versioning 2.0.0 applies.  This means:
     of extra information, with no change in meaning for the standard itself.
 
 If you write a tool that consumes or produces tapson, please make it clear to
-users what version it complies to.
+users what tapson versions it works with.
 
 [MIT license][7].
 
